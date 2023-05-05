@@ -1,0 +1,85 @@
+INICIO
+    # se crea la lista donde se guardaran los viajes luego del 
+    # cliente hacer la solicitud de viaje
+    listViajes = []
+
+    # acá en viaje se trae todos los viajes existentes desde la base # de datos para crearlos
+
+    jsonViajes = miPeticiónAlaBaseDeDatos('...')
+    for viaje in jsonViajes:
+      # creo el objeto sacando todos los datos de viaje
+      listViajes.add(new Viaje(viaje.origen, viaje.destino....))
+      
+    # Se puede tener un metodo que me devuelva de la lista de viajes # los viajes que estas disponibles, como viajes tienen un
+    # booleano que dice si estan disponibles o no seria recorrer
+    # esta lista y mirar cuales dicen true
+
+    listViajesDisponibles = viajesDisponibles(listViajes)
+
+    # Tener un metedo que se encarge de mostrarlos en pantalla
+    # por principio de responsabilidad unica este llamara a los
+    # metodos que sean necesarios para este objetivo
+
+    mostrarViajes(listViajesDisponibles)
+
+    # De momento como el usuario no se ha logeado no puede acceder
+    # a la opcion de hacer una reserva por lo tanto tampoco de
+    # pagarla, por lo tanto tiene que haber un metodo que permita
+    # registrar, se conecta con la base de datos y añade el nuevo
+    # usuario, o iniciar sesión, comprueba en la base de datos
+    # las credenciales. Luego de esto se debe de ejecutar un oyente
+    # permanente que guarde en el historial los vuelos consultados
+    
+    # Para poder hacer una reserva necesitamos un metodo
+    # que se active cuando usuario haga clic en crear
+    # crear reserva (o algo similar) 
+    # antes de llamar al metodo se puede verificar si
+    # el usuario esta logeado, por ejemplo:
+
+    if (localStorange.getItems('usuario')):
+      # llamamos al metodo que creara una reserva y se la pasan los
+      # datos para su creacion
+      # PD: cliente se crea al logearse el usuario o registrar, y se # guarda en el localStorange por ejemplo
+      crearReserva(cliente, viaje, ...)
+
+      #Luego que el cliente confirme la reserva (en un modal por
+      # ejemplo que tenga las opciones e información de reservas y 
+      # le de crear reserva) esta la enviare a la base de datos con
+      # un metodo, para que cuando se vaya hacer la compra se listen
+      # todas las reservas en estado pendiente se meustren y se
+      # calcule el total a pagar apartir de estas
+      enviarReserva(reserva)
+      
+    # va ver un momento donde el usuario clicke en la opcion
+    # de pagar, y llamara a los metodos necesarios para su objetivo
+    # por ejemplo: 
+    # traer de la base de datos las reservas que estan asociadas al # usuario que esta logeado, crear la compra... 
+    # al final nos devuelve un objeto compra
+
+    Compra = pagar()
+
+    # se puede crear una componente pago (si se trabaja con SPA)
+    # o una pagina si se trabaja con MPA, que le muestre toda la
+    # información de compra, las reservas que ha hecho y que no ha
+    # pagado, el precio total, las fechas... Si el usuario acepta
+    # o clickea etc... dependiendo del medio de pago que halla
+    # seleccionado de los que hay disponibles se llamaria algun
+    # metodo que use una libreria de payplay por ejemplo
+
+    Compra.hacerCompra()
+
+    # si la transación fue exitosa el estado de compra puede ser
+    # pagado
+    # o sea paga verificamos esto
+
+    if(Compra.estadoDeCompra):
+        # al estar ya paga procedemos a almacenarla en la BD
+        # con un metodo
+      guardarCompra()
+
+    # para finalizar, dependiendo si trabajamos con SPA o MPA,
+    # se le mostrara al cliente una ventana de que se ha pagado
+    # exitosamente y se le dara información como que el tikequete
+    # llegara al correo o los numeros de tiquetes o codigos etc.
+
+FIN
