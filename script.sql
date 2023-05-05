@@ -48,9 +48,11 @@ CREATE TABLE Reserva (
   viaje_id INT,
   fecha_reserva DATE,
   estado_reserva_id INT,
+  compra_id INT,
   FOREIGN KEY (cliente_id) REFERENCES Cliente(id),
   FOREIGN KEY (viaje_id) REFERENCES Viaje(id)
   FOREIGN KEY (estado_reserva_id) REFERENCES Estado_reserva(id)
+  FOREIGN KEY (compra_id) REFERENCES Compra(id)
 );
 
 --Tabla Medio_de_pago:
